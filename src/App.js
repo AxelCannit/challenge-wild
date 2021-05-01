@@ -1,7 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+
+  const [list, setList] = useState([]);
+
+  const loadList = () => { 
+    axios.get('http://localhost:8080/api/list')
+    .then((response) => {
+      console.log(response.data);
+      setList(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      console.log(list);
+    });
+  };
+
+  useEffect(() => {
+    loadList();
+  }, []);
+
   return (
     <div className="App">
       <header>
@@ -13,17 +34,17 @@ function App() {
       <main>
       
         <h2>Ajouter un(e) Argonaute</h2>
-          <form class="new-member-form">
+          <form className="new-member-form">
             <label for="name">Nom de l&apos;Argonaute</label>
             <input id="name" name="name" type="text" placeholder="Charalampos" />
             <button type="submit">Envoyer</button>
           </form>
       
         <h2>Membres de l'équipage</h2>
-          <section class="member-list">
-            <div class="member-item">Eleftheria</div>
-            <div class="member-item">Gennadios</div>
-            <div class="member-item">Lysimachos</div>
+          <section className="member-list">
+            <div className="member-item">Eleftheria</div>
+            <div className="member-item">Gennadios</div>
+            <div className="member-item">Lysimachos</div>
           </section>
       </main>
       
