@@ -4,7 +4,8 @@ import axios from 'axios';
 const App = () => {
 
   const [list, setList] = useState([]);
-  const [inputValue, setInputValue] = useState([]);
+  // const [name, setName] = useState([]);
+  const nameFormValue = {};
 
   const loadList = () => { 
     axios.get('http://localhost:8080/api/list')
@@ -20,24 +21,31 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
-    loadList();
-  }, []);
+  const nameData = (event) => {
+    const nameFormData = new FormData(event.currentTarget);
+    nameFormValue.name = nameFormData.get('name');
+    sendName(nameFormValue);
+  };
 
-  const sendName = () => {
-    axios.post('http://localhost:8080/api/list', inputValue)
+  const sendName = (name) => {
+    console.log(name);
+    axios.post('http://localhost:8080/api/list', name)
     .then((response) => {
       console.log(response);
     })
     .catch((error) => {
-      console.log(error.message);
+      console.log(error.response);
     })
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    sendName();
+    nameData(event);
   };
+
+  useEffect(() => {
+    loadList();
+  }, []);
 
   return (
     <div className="App">
@@ -56,10 +64,10 @@ const App = () => {
               id="name"
               name="name"
               type="text"
-              placeholder="Charalampos"
-              onChange={(event) => {
-                setInputValue(event.currentTarget.value);
-              }}
+              placeholder="Entrez le nom du membre"
+              // onChange={(event) => {
+              //   setName(event.currentTarget.value);
+              // }}
             />
             <button type="submit">Envoyer</button>
           </form>

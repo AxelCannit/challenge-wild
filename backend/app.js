@@ -18,7 +18,6 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/list', (req, res, next) => {
-  delete req.body._id;
   const list = new List({
     ...req.body
   });
