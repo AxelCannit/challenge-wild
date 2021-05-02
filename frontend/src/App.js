@@ -4,21 +4,16 @@ import axios from 'axios';
 const App = () => {
 
   const [list, setList] = useState([]);
-  // const [name, setName] = useState([]);
   const nameFormValue = {};
 
   const loadList = () => { 
     axios.get('http://localhost:8080/api/list')
     .then((response) => {
-      console.log(response.data);
       setList(response.data);
     })
     .catch((error) => {
       console.log(error);
     })
-    .finally(() => {
-      console.log(list);
-    });
   };
 
   const nameData = (event) => {
@@ -28,14 +23,14 @@ const App = () => {
   };
 
   const sendName = (name) => {
-    console.log(name);
     axios.post('http://localhost:8080/api/list', name)
-    .then((response) => {
-      console.log(response);
-    })
+    .then()
     .catch((error) => {
       console.log(error.response);
     })
+    .finally(() => {
+      loadList();
+    });
   };
 
   const handleSubmit = (event) => {
@@ -59,15 +54,12 @@ const App = () => {
       
         <h2>Ajouter un(e) Argonaute</h2>
           <form onSubmit={handleSubmit} className="new-member-form">
-            <label for="name">Nom de l&apos;Argonaute</label>
+            <label htmlFor="name">Nom de l&apos;Argonaute</label>
             <input
               id="name"
               name="name"
               type="text"
               placeholder="Entrez le nom du membre"
-              // onChange={(event) => {
-              //   setName(event.currentTarget.value);
-              // }}
             />
             <button type="submit">Envoyer</button>
           </form>

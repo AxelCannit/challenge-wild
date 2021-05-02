@@ -25,7 +25,9 @@ header h1 {
 }
 
 footer {
-  background: ;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 h1, h2 {

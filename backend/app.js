@@ -3,8 +3,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const List = require('./model/list');
+app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://admin:ready16160@cluster0.ek9r9.mongodb.net/<dbname>?retryWrites=true&w=majority',
+
+mongoose.connect('mongodb+srv://admin:ready16160@cluster0.ek9r9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -32,6 +34,6 @@ app.use('/api/list', (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 
-  app.use(bodyParser.json());
+
 
 module.exports = app;
